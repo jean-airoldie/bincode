@@ -53,8 +53,7 @@ pub trait DeserializerAcceptor<'a> {
     /// Accept a serde::Deserializer and do whatever you want with it.
     fn accept<T>(self, T) -> Self::Output
     where
-        T: serde::Deserializer<'a>,
-        T::Error: Into<Error>;
+        T: serde::Deserializer<'a, Error = Error>;
 }
 
 /// An object that implements this trait can be passed a
@@ -68,9 +67,7 @@ pub trait SerializerAcceptor {
     /// Accept a serde::Serializer and do whatever you want with it.
     fn accept<T>(self, T) -> Self::Output
     where
-        T: serde::Serializer,
-        T::Ok: Into<()>,
-        T::Error: Into<Error>;
+        T: serde::Serializer<Ok = (), Error = Error>;
 }
 
 /// Get a default configuration object.
