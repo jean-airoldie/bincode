@@ -1,6 +1,8 @@
 use config::Options;
 use std::io::Read;
 
+pub use internal::Bounded;
+
 use self::read::BincodeRead;
 use byteorder::ReadBytesExt;
 use internal::SizeLimit;
@@ -31,7 +33,7 @@ pub struct Deserializer<R, O: Options> {
 
 impl<'de, R: BincodeRead<'de>, O: Options> Deserializer<R, O> {
     /// Creates a new Deserializer with a given `Read`er and a size_limit.
-    pub(crate) fn new(r: R, options: O) -> Deserializer<R, O> {
+    pub fn new(r: R, options: O) -> Deserializer<R, O> {
         Deserializer {
             reader: r,
             options: options,
