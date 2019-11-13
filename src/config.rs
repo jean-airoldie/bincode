@@ -10,32 +10,43 @@ use {DeserializerAcceptor, SerializerAcceptor};
 use self::EndianOption::*;
 use self::LimitOption::*;
 
-struct DefaultOptions(Infinite);
+///
+pub struct DefaultOptions(Infinite);
 
+///
 pub trait Options {
+    ///
     type Limit: SizeLimit + 'static;
+    ///
     type Endian: ByteOrder + 'static;
 
+    ///
     fn limit(&mut self) -> &mut Self::Limit;
 }
 
+///
 pub trait OptionsExt: Options + Sized {
+    ///
     fn with_no_limit(self) -> WithOtherLimit<Self, Infinite> {
         WithOtherLimit::new(self, Infinite)
     }
 
+    ///
     fn with_limit(self, limit: u64) -> WithOtherLimit<Self, Bounded> {
         WithOtherLimit::new(self, Bounded(limit))
     }
 
+    ///
     fn with_little_endian(self) -> WithOtherEndian<Self, LittleEndian> {
         WithOtherEndian::new(self)
     }
 
+    ///
     fn with_big_endian(self) -> WithOtherEndian<Self, BigEndian> {
         WithOtherEndian::new(self)
     }
 
+    ///
     fn with_native_endian(self) -> WithOtherEndian<Self, NativeEndian> {
         WithOtherEndian::new(self)
     }
@@ -54,7 +65,8 @@ impl<'a, O: Options> Options for &'a mut O {
 impl<T: Options> OptionsExt for T {}
 
 impl DefaultOptions {
-    fn new() -> DefaultOptions {
+    ///
+    pub fn new() -> DefaultOptions {
         DefaultOptions(Infinite)
     }
 }
@@ -70,7 +82,7 @@ impl Options for DefaultOptions {
 }
 
 #[derive(Clone, Copy)]
-enum LimitOption {
+pub enum LimitOption {
     Unlimited,
     Limited(u64),
 }
