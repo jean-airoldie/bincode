@@ -12,14 +12,14 @@ use self::LimitOption::*;
 
 struct DefaultOptions(Infinite);
 
-pub(crate) trait Options {
+pub trait Options {
     type Limit: SizeLimit + 'static;
     type Endian: ByteOrder + 'static;
 
     fn limit(&mut self) -> &mut Self::Limit;
 }
 
-pub(crate) trait OptionsExt: Options + Sized {
+pub trait OptionsExt: Options + Sized {
     fn with_no_limit(self) -> WithOtherLimit<Self, Infinite> {
         WithOtherLimit::new(self, Infinite)
     }
@@ -101,12 +101,12 @@ pub struct Config {
     endian: EndianOption,
 }
 
-pub(crate) struct WithOtherLimit<O: Options, L: SizeLimit> {
+pub struct WithOtherLimit<O: Options, L: SizeLimit> {
     _options: O,
     pub(crate) new_limit: L,
 }
 
-pub(crate) struct WithOtherEndian<O: Options, E: ByteOrder> {
+pub struct WithOtherEndian<O: Options, E: ByteOrder> {
     options: O,
     _endian: PhantomData<E>,
 }

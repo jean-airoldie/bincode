@@ -16,7 +16,7 @@ use config::Options;
 ///
 /// This struct should not be used often.
 /// For most cases, prefer the `encode_into` function.
-pub(crate) struct Serializer<W, O: Options> {
+pub struct Serializer<W, O: Options> {
     writer: W,
     _options: O,
 }
@@ -237,11 +237,14 @@ impl<'a, W: Write, O: Options> serde::Serializer for &'a mut Serializer<W, O> {
     }
 }
 
-pub(crate) struct SizeChecker<O: Options> {
+///
+pub struct SizeChecker<O: Options> {
+    ///
     pub options: O,
 }
 
 impl<O: Options> SizeChecker<O> {
+    ///
     pub fn new(options: O) -> SizeChecker<O> {
         SizeChecker { options: options }
     }
@@ -440,7 +443,7 @@ impl<'a, O: Options> serde::Serializer for &'a mut SizeChecker<O> {
     }
 }
 
-pub(crate) struct Compound<'a, W: 'a, O: Options + 'a> {
+pub struct Compound<'a, W: 'a, O: Options + 'a> {
     ser: &'a mut Serializer<W, O>,
 }
 
@@ -606,7 +609,7 @@ where
     }
 }
 
-pub(crate) struct SizeCompound<'a, S: Options + 'a> {
+pub struct SizeCompound<'a, S: Options + 'a> {
     ser: &'a mut SizeChecker<S>,
 }
 

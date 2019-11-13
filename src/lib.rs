@@ -41,6 +41,7 @@ mod ser;
 pub use config::Config;
 pub use de::read::{BincodeRead, IoReader, SliceReader};
 pub use error::{Error, ErrorKind, Result};
+pub use ser::{Serializer, SizeChecker};
 
 /// An object that implements this trait can be passed a
 /// serde::Deserializer without knowing its concrete type.
