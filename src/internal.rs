@@ -54,7 +54,8 @@ impl<L: SizeLimit> SizeLimit for CountSize<L> {
     }
 }
 
-pub(crate) fn serialized_size<T: ?Sized, O: Options>(value: &T, mut options: O) -> Result<u64>
+///
+pub fn serialized_size<T: ?Sized, O: Options>(value: &T, mut options: O) -> Result<u64>
 where
     T: serde::Serialize,
 {

@@ -38,7 +38,8 @@ mod error;
 mod internal;
 mod ser;
 
-pub use config::{Config, DefaultOptions, Options, OptionsExt, WithOtherLimit};
+pub use internal::serialized_size as internal_serialized_size;
+pub use config::{Config, DefaultOptions, Options, OptionsExt};
 pub use de::read::{BincodeRead, IoReader, SliceReader};
 pub use error::{Error, ErrorKind, Result};
 pub use ser::{Serializer, SizeChecker};
