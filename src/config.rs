@@ -113,19 +113,22 @@ pub struct Config {
     endian: EndianOption,
 }
 
+///
 pub struct WithOtherLimit<O: Options, L: SizeLimit> {
     _options: O,
     pub(crate) new_limit: L,
 }
 
+///
 pub struct WithOtherEndian<O: Options, E: ByteOrder> {
     options: O,
     _endian: PhantomData<E>,
 }
 
 impl<O: Options, L: SizeLimit> WithOtherLimit<O, L> {
+    ///
     #[inline(always)]
-    pub(crate) fn new(options: O, limit: L) -> WithOtherLimit<O, L> {
+    pub fn new(options: O, limit: L) -> WithOtherLimit<O, L> {
         WithOtherLimit {
             _options: options,
             new_limit: limit,
